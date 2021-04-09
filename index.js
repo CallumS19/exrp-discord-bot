@@ -2,11 +2,11 @@ require('dotenv').config()
 
 const fs = require('fs')
 const Discord = require('discord.js')
+const {prefix} = require('./config.json');
 
 const client = new Discord.Client({
     partials: ['MESSAGE']
 });
-const {prefix} = require('./config.json');
 
 client.commands = new Discord.Collection();
 const commandFolders = fs.readdirSync('./commands');
@@ -14,7 +14,7 @@ const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
-        const command = require(`'./commands/${folder}/${file}`);
+        const command = require(`./commands/${folder}/${file}`);
         client.commands.set(command.name, command);
     }
 }
@@ -36,7 +36,7 @@ client.on('message', message => {
         if (command.args && !args.length) {
             return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
         }
-        
+
     try {
         client.execute(message, args);
     } catch (error) {
