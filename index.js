@@ -11,7 +11,7 @@ client.on('ready', () => {
 })
 
 client.on('message', msg => {
-    if (msg.content === "hey") {
+    if (msg.content === "hello") {
         msg.reply("Hi there")
     } else if (msg.content === "u good bro") {
         msg.channel.send("nah")
